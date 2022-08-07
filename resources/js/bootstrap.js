@@ -42,5 +42,3 @@ window.Echo = new Echo({
     disableStats: true,
 });
 
-
-window.BASE_URL = process.env.APP_URL;
