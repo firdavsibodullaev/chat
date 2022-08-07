@@ -18,7 +18,7 @@
                       </a>
                       <ul class="dropdown-menu">
                         <li><a class="dropdown-item" href="javascript:"
-                               onclick="document.querySelector('#logout-form').submit()">Выйти</a></li>
+                               onclick="document.querySelector('#logout-form').submit()">Logout</a></li>
                           <form action="{{route('logout')}}" method="post" id="logout-form">@csrf</form>
                       </ul>
                     </div>
@@ -27,8 +27,8 @@
         </div>
         <div class="card-body">
             <div class="d-flex justify-content-end">
-                <a href="{{route('chat.create')}}" class="btn btn-flat btn-sm btn-primary text-white py-1 px-2">Новый
-                    чат</a>
+                <a href="{{route('chat.create')}}" class="btn btn-flat btn-sm btn-primary text-white py-1 px-2">New
+                    conversation</a>
             </div>
             <vue-index>
 
