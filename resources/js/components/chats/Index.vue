@@ -1,17 +1,21 @@
 <template>
     <div>
         <div class="card my-2" v-for="guest in guests">
-            <div class="card-body col-8 mx-auto">
-                <div class="d-flex justify-content-between">
-                    <p class="m-0">{{ guest.name }}</p>
-                    <span>
-                        <a v-bind:href="getShowUrl(guest.id)" class="m-0">
-                            <i class="bi bi-chat-dots"></i>
-                        </a>
-                        <a href="javascript:" @click="deleteChat(guest.id)" class="m-0 text-danger ms-2">
-                            <i class="bi bi-trash"></i>
-                        </a>
-                    </span>
+            <div class="card-body col-12 col-md-8 mx-auto">
+                <div class="row">
+                    <div class="col-9">
+                        <p class="m-0">{{ guest.name }}</p>
+                    </div>
+                    <div class="col-3 d-flex justify-content-end">
+                        <span>
+                            <a v-bind:href="getShowUrl(guest.id)" class="m-0">
+                                <i class="bi bi-chat-dots"></i>
+                            </a>
+                            <a href="javascript:" @click="deleteChat(guest.id)" class="m-0 text-danger ms-2">
+                                <i class="bi bi-trash"></i>
+                            </a>
+                        </span>
+                    </div>
                 </div>
             </div>
         </div>

@@ -30,9 +30,7 @@
                 <a href="{{route('chat.create')}}" class="btn btn-flat btn-sm btn-primary text-white py-1 px-2">New
                     conversation</a>
             </div>
-            <vue-index>
-
-            </vue-index>
+            <vue-index></vue-index>
         </div>
     </div>
 @endsection
