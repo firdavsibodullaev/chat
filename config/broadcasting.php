@@ -40,7 +40,7 @@ return [
                 'encrypted' => true,
                 'host' => env('BROADCAST_URL', '192.168.1.31'),
                 'port' => 6002,
-                'scheme' => 'http'
+                'scheme' => 'https'
             ],
         ],
 
