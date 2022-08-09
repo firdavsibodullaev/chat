@@ -15,8 +15,7 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 class Chat extends Model
 {
     protected $fillable = [
-        'participant_1_id',
-        'participant_2_id',
+        'chat_type'
     ];
 
     /**
