@@ -138,13 +138,13 @@ class ChatService
      * @param User $user
      * @return bool
      */
-    public function checkChatUserExistance(int $chat_id, User $user): bool
+    public function checkChatUserExistence(int $chat_id, User $user): bool
     {
         $chat = Chat::query()->whereKey($chat_id)->first();
 
         if (is_null($chat)) {
             return false;
         }
-        return $chat->participant_1_id === $user->id || $chat->participant_2_id === $user->id;
+        return in_array($user->id, [$chat->participant_1_id, $chat->participant_2_id]);
     }
 }
