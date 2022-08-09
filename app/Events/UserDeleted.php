@@ -47,7 +47,7 @@ class UserDeleted implements ShouldBroadcast
         ];
     }
 
-    public function broadcastAs()
+    public function broadcastAs(): string
     {
         return 'chat.delete';
     }
@@ -55,7 +55,8 @@ class UserDeleted implements ShouldBroadcast
     public function broadcastWith(): array
     {
         return [
-            $this->guest, $this->host
+            $this->guest,
+            $this->host
         ];
     }
 
