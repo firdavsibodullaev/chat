@@ -5,11 +5,10 @@ namespace App\Http\Controllers;
 use App\Chat;
 use App\Events\ChatList;
 use App\Events\SendMessage;
-use App\Events\UserDeleted;
 use App\Http\Resources\MessageResource;
 use App\Message;
 use App\Rules\CheckChatExistance;
-use App\Services\ChatService;
+use App\Services\PrivateChatService;
 use App\Services\MessageService;
 use App\User;
 use Illuminate\Http\RedirectResponse;
@@ -20,11 +19,11 @@ use Throwable;
 class HomeController extends Controller
 {
     /**
-     * @var ChatService
+     * @var PrivateChatService
      */
     private $chatService;
 
-    public function __construct(ChatService $chatService)
+    public function __construct(PrivateChatService $chatService)
     {
         $this->chatService = $chatService;
     }
@@ -87,7 +86,7 @@ class HomeController extends Controller
 
         /** @var Chat $chat */
         $chat = $this->chatService->create($validated);
-        event(new ChatList($user, $chat));
+        event(new ChatList($chat));
 
         return redirect()->route('chat.show', $validated['user_id']);
     }

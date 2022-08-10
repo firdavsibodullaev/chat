@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
@@ -14,24 +15,21 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
  */
 class Chat extends Model
 {
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
     protected $fillable = [
         'chat_type'
     ];
 
     /**
-     * @return HasOne
+     * @return BelongsToMany
      */
-    public function host(): HasOne
+    public function participants(): BelongsToMany
     {
-        return $this->hasOne(User::class, 'id', 'participant_1_id');
-    }
-
-    /**
-     * @return HasOne
-     */
-    public function guest(): HasOne
-    {
-        return $this->hasOne(User::class, 'id', 'participant_2_id');
+        return $this->belongsToMany(User::class);
     }
 
     /**

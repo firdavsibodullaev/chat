@@ -20,7 +20,7 @@ class MessageService
      */
     public function create(User $user, array $payload): Model
     {
-        $chat = (new ChatService())->show($user->id);
+        $chat = (new PrivateChatService())->show($user->id);
         $payload['user_id'] = auth()->id();
         $payload['chat_id'] = $chat['id'];
 

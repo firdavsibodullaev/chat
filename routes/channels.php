@@ -1,6 +1,6 @@
 <?php
 
-use App\Services\ChatService;
+use App\Services\PrivateChatService;
 use Illuminate\Support\Facades\Broadcast;
 
 /*
@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Broadcast;
 
 
 Broadcast::channel('conversation.{chat_id}', function ($user, $chat_id) {
-    return (new ChatService())->checkChatUserExistence($chat_id, $user);
+    return (new PrivateChatService())->checkChatUserExistence($chat_id, $user);
 });
 
 Broadcast::channel('chat.list.{user_id}', function ($user, $user_id) {

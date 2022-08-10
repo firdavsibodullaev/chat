@@ -18,10 +18,6 @@ class ChatList implements ShouldBroadcast
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
     /**
-     * @var User
-     */
-    private $user;
-    /**
      * @var Chat
      */
     private $chat;
@@ -31,9 +27,8 @@ class ChatList implements ShouldBroadcast
      *
      * @return void
      */
-    public function __construct(User $user, Chat $chat)
+    public function __construct(Chat $chat)
     {
-        $this->user = $user;
         $this->chat = $chat;
     }
 
@@ -44,10 +39,11 @@ class ChatList implements ShouldBroadcast
      */
     public function broadcastOn(): array
     {
-        return [
-            new PrivateChannel("chat.list." . $this->chat->participant_1_id),
-            new PrivateChannel("chat.list." . $this->chat->participant_2_id)
-        ];
+        $channels = [];
+        foreach ($this->chat->participants->pluck('id')->toArray() as $id) {
+            $channels[] = new PrivateChannel("chat.list." . $id);
+        }
+        return $channels;
     }
 
     public function broadcastAs(): string
@@ -61,8 +57,8 @@ class ChatList implements ShouldBroadcast
     public function broadcastWith(): array
     {
         return [
-            'host' => UserResource::make($this->chat->host),
-            'guest' => UserResource::make($this->chat->guest),
+            'host' => UserResource::make(auth()->user()),
+            'guest' => UserResource::make($this->chat->participants->whereNotIn('id', [auth()->id()])->first()),
         ];
     }
 }

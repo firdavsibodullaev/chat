@@ -3,8 +3,10 @@
 namespace App\Rules;
 
 use App\Chat;
+use App\ChatUser;
 use Illuminate\Contracts\Validation\Rule;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Query\Builder as BuilderAlias;
 
 class CheckChatExistance implements Rule
 {
@@ -34,13 +36,15 @@ class CheckChatExistance implements Rule
     {
         $id = auth()->id();
         $this->value = $value;
-        return Chat::query()->where(function (Builder $q) use ($value, $id) {
-            $q->where('participant_1_id', '=', $id)
-                ->where('participant_2_id', '=', $value);
-        })->orWhere(function (Builder $q) use ($value, $id) {
-            $q->where('participant_2_id', '=', $id)
-                ->where('participant_1_id', '=', $value);
-        })->doesntExist();
+        return ChatUser::query()
+            ->whereIn('chat_id', function (BuilderAlias $q) use ($id) {
+                $q->select('chat_id')
+                    ->from('chat_user')
+                    ->where('user_id', '=', $id);
+            })
+            ->where('user_id', '=', $value)
+            ->with('user')
+            ->doesntExist();
     }
 
     /**

@@ -9,7 +9,7 @@ use App\Http\Resources\ChatGroupResource;
 use App\Http\Resources\ChatResource;
 use App\Http\Resources\MessageResource;
 use App\Rules\CheckChatExistance;
-use App\Services\ChatService;
+use App\Services\PrivateChatService;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -18,11 +18,11 @@ use Illuminate\Validation\Rule;
 class ChatController extends Controller
 {
     /**
-     * @var ChatService
+     * @var PrivateChatService
      */
     private $chatService;
 
-    public function __construct(ChatService $chatService)
+    public function __construct(PrivateChatService $chatService)
     {
         $this->chatService = $chatService;
     }
