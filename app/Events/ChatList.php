@@ -10,6 +10,7 @@ use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Broadcasting\PresenceChannel;
 use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
@@ -39,11 +40,11 @@ class ChatList implements ShouldBroadcast
      */
     public function broadcastOn(): array
     {
-        $channels = [];
-        foreach ($this->chat->participants->pluck('id')->toArray() as $id) {
-            $channels[] = new PrivateChannel("chat.list." . $id);
-        }
-        return $channels;
+        /** @var Collection $participants */
+        $participants = $this->chat->participants;
+        return $participants->pluck("id")->map(function ($id) {
+            return new PrivateChannel("chat.list." . $id);
+        })->toArray();
     }
 
     public function broadcastAs(): string
