@@ -11,7 +11,8 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 /**
  * @property-read User $host
  * @property-read User $guest
- * @property-read Collection<Message> $messages
+ * @property-read Collection<int, Message> $messages
+ * @property-read Collection<int, User> $participants
  */
 class Chat extends Model
 {

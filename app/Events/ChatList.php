@@ -40,9 +40,7 @@ class ChatList implements ShouldBroadcast
      */
     public function broadcastOn(): array
     {
-        /** @var Collection $participants */
-        $participants = $this->chat->participants;
-        return $participants->pluck("id")->map(function ($id) {
+        return $this->chat->participants->pluck("id")->map(function ($id) {
             return new PrivateChannel("chat.list." . $id);
         })->toArray();
     }
